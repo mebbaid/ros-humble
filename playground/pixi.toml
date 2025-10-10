@@ -39,4 +39,4 @@ ros-humble-ur-simulation-gz = "*"
 
 
 [tasks]
-launch-simulation = { cmd = "ros2 launch ur_simulation_gz ur_sim_control.launch.py initial_joint_controller:=scaled_joint_trajectory_controller", env = { IGN_GAZEBO_SYSTEM_PLUGIN_PATH = "$CONDA_PREFIX/lib", GZ_SIM_SYSTEM_PLUGIN_PATH = "$CONDA_PREFIX/lib" } }
+launch-simulation = "ros2 launch ur_simulation_gz ur_sim_control.launch.py initial_joint_controller:=scaled_joint_trajectory_controller"

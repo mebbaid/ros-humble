@@ -1,0 +1,56 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index a1b2c3d..8f9e2a1 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -10,6 +10,35 @@ option(
+   OFF
+ )
+ 
++# Install conda activation scripts to set required Gazebo environment variables
++# These scripts will be sourced when the conda environment is activated
++if(UNIX)
++  # Create activation script
++  file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/ur_simulation_gz_activate.sh"
++"#!/bin/bash
++# Set Gazebo system plugin paths for ur_simulation_gz
++if [ -z \"\${IGN_GAZEBO_SYSTEM_PLUGIN_PATH_BACKUP}\" ]; then
++    export IGN_GAZEBO_SYSTEM_PLUGIN_PATH_BACKUP=\"\${IGN_GAZEBO_SYSTEM_PLUGIN_PATH}\"
++fi
++if [ -z \"\${GZ_SIM_SYSTEM_PLUGIN_PATH_BACKUP}\" ]; then
++    export GZ_SIM_SYSTEM_PLUGIN_PATH_BACKUP=\"\${GZ_SIM_SYSTEM_PLUGIN_PATH}\"
++fi
++export IGN_GAZEBO_SYSTEM_PLUGIN_PATH=\"\${CONDA_PREFIX}/lib:\${IGN_GAZEBO_SYSTEM_PLUGIN_PATH}\"
++export GZ_SIM_SYSTEM_PLUGIN_PATH=\"\${CONDA_PREFIX}/lib:\${GZ_SIM_SYSTEM_PLUGIN_PATH}\"
++")
++  
++  # Create deactivation script  
++  file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/ur_simulation_gz_deactivate.sh"
++"#!/bin/bash
++# Restore original Gazebo system plugin paths
++if [ -n \"\${IGN_GAZEBO_SYSTEM_PLUGIN_PATH_BACKUP}\" ]; then
++    export IGN_GAZEBO_SYSTEM_PLUGIN_PATH=\"\${IGN_GAZEBO_SYSTEM_PLUGIN_PATH_BACKUP}\"
++    unset IGN_GAZEBO_SYSTEM_PLUGIN_PATH_BACKUP
++fi
++if [ -n \"\${GZ_SIM_SYSTEM_PLUGIN_PATH_BACKUP}\" ]; then
++    export GZ_SIM_SYSTEM_PLUGIN_PATH=\"\${GZ_SIM_SYSTEM_PLUGIN_PATH_BACKUP}\"
++    unset GZ_SIM_SYSTEM_PLUGIN_PATH_BACKUP
++fi
++")
++endif()
++
+ install(DIRECTORY config launch urdf
+   DESTINATION share/${PROJECT_NAME}
+ )
+@@ -28,4 +57,12 @@ if(BUILD_TESTING)
+   ament_add_pytest_test(description test/test_description.py)
+ endif()
+ 
++# Install conda activation scripts for environment variables
++if(UNIX)
++  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/ur_simulation_gz_activate.sh"
++          DESTINATION etc/conda/activate.d)
++  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/ur_simulation_gz_deactivate.sh"
++          DESTINATION etc/conda/deactivate.d)
++endif()
++
+ ament_package()
