@@ -319,6 +319,11 @@ packages_select_by_deps:
       # IntelRealSense
       - librealsense2
 
+      # bitcraze stuff
+      - crazyflie
+      - crazyflie-interfaces
+      - crazyflie-sim
+
   # These packages are only built on Linux as they depend on Linux-specific API
   - if: linux
     then:

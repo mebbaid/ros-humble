@@ -1,0 +1,25 @@
+--- a/deps/crazyflie_tools/crazyflie_cpp/CMakeLists.txt
++++ b/deps/crazyflie_tools/crazyflie_cpp/CMakeLists.txt
+@@ -27,7 +27,7 @@ target_include_directories(crazyflie_cpp
+ )
+ 
+ target_link_libraries(crazyflie_cpp
+-  PRIVATE
++  PUBLIC
+     crazyflieLinkCpp
+ )
+ 
+--- a/deps/crazyflie_tools/crazyflie_cpp/crazyflie-link-cpp/CMakeLists.txt
++++ b/deps/crazyflie_tools/crazyflie_cpp/crazyflie-link-cpp/CMakeLists.txt
+@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD 14)
+ set(CMAKE_CXX_STANDARD_REQUIRED ON)
+ set(CMAKE_CXX_EXTENSIONS OFF)
+ 
+-# Compile static libraries with hidden visibility
+-set(CMAKE_CXX_VISIBILITY_PRESET hidden)
++# Compile static libraries with default visibility (needed for conda build)
++set(CMAKE_CXX_VISIBILITY_PRESET default)
+ 
+ if (MSVC)
+
+ 
