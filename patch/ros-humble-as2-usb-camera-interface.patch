@@ -1,0 +1,12 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index dcec7dd5..c0f82bbc 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -29,6 +29,7 @@ set(PROJECT_DEPENDENCIES
+ foreach(DEPENDENCY ${PROJECT_DEPENDENCIES})
+   find_package(${DEPENDENCY} REQUIRED)
+ endforeach()
++find_package(GeographicLib REQUIRED)
+ 
+ # include directories
+ include_directories(

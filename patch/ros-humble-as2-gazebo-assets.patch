@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 44ca6f42..19c151c5 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -19,7 +19,7 @@ find_package(gz-common5 QUIET)
+ if(gz-common5_FOUND)
+   set(GZ_VERSION "harmonic")
+ endif()
+-
++find_package(GeographicLib REQUIRED)
+ message("Using GAZEBO version: ${GZ_VERSION}")
+ 
+ if( ${GZ_VERSION} STREQUAL "harmonic" )

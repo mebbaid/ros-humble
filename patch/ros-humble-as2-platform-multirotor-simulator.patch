@@ -1,0 +1,12 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 1ccea899..e2618a46 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -28,6 +28,7 @@ set(PROJECT_DEPENDENCIES
+ foreach(DEPENDENCY ${PROJECT_DEPENDENCIES})
+   find_package(${DEPENDENCY} REQUIRED)
+ endforeach()
++find_package(GeographicLib REQUIRED)
+ 
+ # Add project submodules
+ if(${multirotor_simulator_FOUND})

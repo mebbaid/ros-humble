@@ -23,3 +23,15 @@ index ce4a7522..640e5a3a 100644
  
    // detect markers on the fisheye, it's no worth it to detect over the rectified image
    cv::aruco::detectMarkers(
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 643ca101..612f51c3 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -35,6 +35,7 @@ set(PROJECT_DEPENDENCIES
+ foreach(DEPENDENCY ${PROJECT_DEPENDENCIES})
+   find_package(${DEPENDENCY} REQUIRED)
+ endforeach()
++find_package(GeographicLib REQUIRED)
+ 
+ # List of behaviors
+ set(BEHAVIORS_LIST
